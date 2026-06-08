@@ -1,0 +1,144 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String          @id @default(cuid())
+  email           String          @unique
+  password        String
+  name            String?
+  role            Role            @default(USER)
+  createdAt       DateTime        @default(now())
+  orders          Order[]
+  tickets         Ticket[]        @relation("CustomerTickets")
+  assignedTickets Ticket[]        @relation("AssignedStaff")
+  sentMessages    TicketMessage[]
+  staffTags       StaffTag[]      @relation("UserStaffTags")
+  auditLogs       AuditLog[]
+}
+
+model StaffTag {
+  id      String   @id @default(cuid())
+  name    String   @unique
+  emoji   String   @default("🏷️")
+  tickets Ticket[]
+  users   User[]   @relation("UserStaffTags")
+}
+
+model Product {
+  id          String             @id @default(cuid())
+  name        String
+  slug        String             @unique
+  description String
+  price       Float
+  stock       Int                @default(0)
+  imageUrl    String?
+  createdAt   DateTime           @default(now())
+  modelUrl    String?
+  orderItems  OrderItem[]
+  components  ProductComponent[]
+  tutorials   Tutorial[]
+}
+
+model ProductComponent {
+  id        String  @id @default(cuid())
+  name      String
+  quantity  Int
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Tutorial {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  videoUrl  String?
+  productId String
+  createdAt DateTime @default(now())
+  product   Product  @relation(fields: [productId], references: [id])
+}
+
+model Order {
+  id           String      @id @default(cuid())
+  userId       String
+  total        Float
+  status       OrderStatus @default(PENDING)
+  createdAt    DateTime    @default(now())
+  trackingStep Int         @default(0)
+  user         User        @relation(fields: [userId], references: [id])
+  items        OrderItem[]
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Float
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model Ticket {
+  id            String          @id @default(cuid())
+  subject       String
+  description   String
+  status        TicketStatus    @default(OPEN)
+  categoryId    String
+  customerId    String
+  staffId       String?
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  category      StaffTag        @relation(fields: [categoryId], references: [id])
+  customer      User            @relation("CustomerTickets", fields: [customerId], references: [id])
+  assignedStaff User?           @relation("AssignedStaff", fields: [staffId], references: [id])
+  messages      TicketMessage[]
+}
+
+model TicketMessage {
+  id        String   @id @default(cuid())
+  content   String
+  ticketId  String
+  senderId  String
+  createdAt DateTime @default(now())
+  sender    User     @relation(fields: [senderId], references: [id])
+  ticket    Ticket   @relation(fields: [ticketId], references: [id], onDelete: Cascade)
+}
+
+enum Role {
+  USER
+  ADMIN
+  STAFF
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  PRINTING
+  PRINTED
+  PACKED
+  SHIPPED
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  target    String
+  details   String?
+  metadata  Json?
+  ip        String?
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id])
+}
