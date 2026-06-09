@@ -16,7 +16,7 @@ interface Pulse {
 }
 
 export default function AnimatedBackground() {
-    const { theme } = useTheme();
+    const { resolvedTheme } = useTheme();
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const mouseRef = useRef({ x: -1000, y: -1000 });
 
@@ -32,7 +32,7 @@ export default function AnimatedBackground() {
         const pulses: Pulse[] = [];
         const gridSize = 100;
 
-        const isLight = theme === "light";
+        const isLight = resolvedTheme === "light";
 
         const init = () => {
             canvas.width = window.innerWidth;
@@ -109,9 +109,9 @@ export default function AnimatedBackground() {
         const animate = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Draw static circuits - Slightly more visible
-            ctx.strokeStyle = isLight ? "rgba(0, 165, 233, 0.25)" : "rgba(60, 80, 120, 0.25)";
-            ctx.lineWidth = 1;
+            // Draw static circuits
+            ctx.strokeStyle = isLight ? "rgba(3, 105, 161, 0.30)" : "rgba(60, 80, 120, 0.28)";
+            ctx.lineWidth = isLight ? 1.2 : 1;
             nodes.forEach((node) => {
                 node.connections.forEach((connIdx) => {
                     const target = nodes[connIdx];
@@ -121,9 +121,9 @@ export default function AnimatedBackground() {
                     ctx.stroke();
                 });
 
-                ctx.fillStyle = isLight ? "rgba(0, 165, 233, 0.3)" : "rgba(60, 80, 120, 0.4)";
+                ctx.fillStyle = isLight ? "rgba(3, 105, 161, 0.45)" : "rgba(60, 80, 120, 0.45)";
                 ctx.beginPath();
-                ctx.arc(node.x, node.y, 1.5, 0, Math.PI * 2);
+                ctx.arc(node.x, node.y, 1.8, 0, Math.PI * 2);
                 ctx.fill();
             });
 
@@ -205,7 +205,7 @@ export default function AnimatedBackground() {
             window.removeEventListener("mousemove", handleMouseMove);
             window.removeEventListener("resize", handleResize);
         };
-    }, [theme]);
+    }, [resolvedTheme]);
 
     return (
         <canvas

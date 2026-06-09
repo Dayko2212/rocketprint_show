@@ -2,55 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+/* === LIGHT MODE (default) === */
 :root {
-  --background: #111827;
-  --foreground: #ffffff;
+  --background: #f0f9ff;
+  --foreground: #0f172a;
   --accent-blue: #0ea5e9;
-  --accent-light: rgba(14, 165, 233, 0.4);
-  --card-bg: rgba(31, 41, 55, 0.4);
-  --card-border: rgba(14, 165, 233, 0.2);
-  --card-shadow: rgba(14, 165, 233, 0.1);
-  --surface-accent: rgba(14, 165, 233, 0.1);
+  --accent-light: rgba(14, 165, 233, 0.15);
+  --card-bg: rgba(255, 255, 255, 0.75);
+  --card-border: rgba(14, 165, 233, 0.25);
+  --card-shadow: rgba(0, 0, 0, 0.06);
+  --surface-accent: rgba(14, 165, 233, 0.07);
 }
 
+/* === DARK MODE === */
 .dark {
   --background: #111827;
   --foreground: #ffffff;
   --accent-blue: #0ea5e9;
   --accent-light: rgba(14, 165, 233, 0.4);
-  --card-bg: rgba(31, 41, 55, 0.4);
+  --card-bg: rgba(31, 41, 55, 0.5);
   --card-border: rgba(14, 165, 233, 0.2);
   --card-shadow: rgba(14, 165, 233, 0.1);
   --surface-accent: rgba(14, 165, 233, 0.1);
-}
-
-.light {
-  --background: #ffffff;
-  --foreground: #0f172a;
-  --accent-blue: #0ea5e9; 
-  --accent-light: rgba(14, 165, 233, 0.1);
-  --card-bg: rgba(255, 255, 255, 0.5);
-  --card-border: rgba(14, 165, 233, 0.2);
-  --card-shadow: rgba(0, 0, 0, 0.05);
-  --surface-accent: rgba(14, 165, 233, 0.05);
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
   }
+
+  /* ── LIGHT MODE body ── */
   body {
-    background: radial-gradient(circle at 50% 50%, #f0f9ff 0%, #dbeafe 100%);
-    background-size: cover;
+    background: linear-gradient(160deg, #e0f2fe 0%, #f0f9ff 40%, #ffffff 100%);
     background-attachment: fixed;
-    background-position: center;
     color: var(--foreground);
-    transition: background 0.5s ease, color 0.5s ease;
+    transition: background 0.6s ease, color 0.4s ease;
     min-height: 100vh;
   }
-  
+
+  /* ── DARK MODE body (galaxy) ── */
   .dark body {
-    background: radial-gradient(circle at 50% 50%, rgba(10, 25, 50, 0.93) 0%, rgba(3, 7, 18, 0.99) 100%), url('/galaxy_bg.png');
+    background:
+      radial-gradient(circle at 50% 50%, rgba(10, 25, 50, 0.93) 0%, rgba(3, 7, 18, 0.99) 100%),
+      url('/galaxy_bg.png');
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
@@ -58,22 +52,19 @@
   }
 }
 
-/* Custom scrollbar globally */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
-
 ::-webkit-scrollbar-track {
   background: var(--background);
 }
-
 ::-webkit-scrollbar-thumb {
   background: var(--accent-blue);
   border-radius: 5px;
   border: 2px solid var(--background);
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #ff7800; /* Revert to fun orange */
+  background: #ff7800;
 }
