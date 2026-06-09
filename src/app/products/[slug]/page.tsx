@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const product = ROBOTIC_ARM_PRODUCT;
 
     return {
-        title: `${product.name} | 3D Bots`,
+        title: `${product.name} | RocketPrint`,
         description: product.description,
     };
 }
@@ -36,19 +36,45 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
 
     return (
         <div className="bg-transparent min-h-[80vh] relative overflow-hidden">
-            {/* Background Overlay */}
-            <div
-                className="absolute inset-0 z-0 opacity-20 mix-blend-screen bg-repeat pattern-overlay pointer-events-none"
-                style={{ backgroundImage: "url('/galaxy_bg.png')", backgroundSize: "400px" }}
-            />
-
             <div className="container mx-auto px-4 py-16 relative z-10">
                 <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
 
-                    <div className="w-full lg:w-1/2">
+                    {/* Left Column: 3D Model Viewer & Controls Summary */}
+                    <div className="w-full lg:w-1/2 flex flex-col">
                         <ProductModelViewer modelUrl={product.modelUrl} />
+
+                        {/* Mouse Actions Summary */}
+                        <div className="mt-8 bg-card-bg backdrop-blur-md border border-card-border p-6 rounded-[2rem] shadow-xl">
+                            <h3 className="text-xs font-black uppercase text-orange-400 tracking-[0.2em] mb-4 flex items-center gap-2 justify-center lg:justify-start">
+                                🖱️ Commandes de la visionneuse 3D
+                            </h3>
+                            <div className="grid grid-cols-3 gap-4 text-center">
+                                <div className="p-4 bg-surface-accent/20 border border-card-border/50 rounded-2xl flex flex-col items-center justify-center gap-2">
+                                    <div className="w-6 h-8 rounded-sm border-2 border-foreground/30 relative overflow-hidden bg-foreground/5">
+                                        <div className="absolute top-0 left-0 w-1/2 h-2/5 border-b border-r border-foreground/30 bg-orange-500/80" />
+                                    </div>
+                                    <div className="text-[10px] font-black uppercase text-foreground/80 tracking-wider">Rotation</div>
+                                    <div className="text-[9px] text-foreground/50">Clic Gauche</div>
+                                </div>
+                                <div className="p-4 bg-surface-accent/20 border border-card-border/50 rounded-2xl flex flex-col items-center justify-center gap-2">
+                                    <div className="w-6 h-8 rounded-sm border-2 border-foreground/30 relative overflow-hidden bg-foreground/5">
+                                        <div className="absolute top-0 right-0 w-1/2 h-2/5 border-b bg-orange-500/80 border-foreground/30" />
+                                    </div>
+                                    <div className="text-[10px] font-black uppercase text-foreground/80 tracking-wider">Translation</div>
+                                    <div className="text-[9px] text-foreground/50">Clic Droit</div>
+                                </div>
+                                <div className="p-4 bg-surface-accent/20 border border-card-border/50 rounded-2xl flex flex-col items-center justify-center gap-2">
+                                    <div className="w-6 h-8 rounded-sm border-2 border-foreground/30 relative overflow-hidden bg-foreground/5">
+                                        <div className="absolute top-[2px] left-1/2 -translate-x-1/2 w-1 h-2 bg-orange-500 rounded-full shadow-[0_0_8px_orange]" />
+                                    </div>
+                                    <div className="text-[10px] font-black uppercase text-foreground/80 tracking-wider">Zoom</div>
+                                    <div className="text-[9px] text-foreground/50">Molette</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
+                    {/* Right Column: Product Details */}
                     <div className="w-full lg:w-1/2 flex flex-col justify-center py-6">
                         <nav className="text-sm mb-6 text-foreground/40 font-bold uppercase tracking-wider flex items-center space-x-3">
                             <a href="/" className="hover:text-orange-400 transition-colors">Accueil</a>
@@ -66,7 +92,7 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
                             </span>
                         </div>
  
-                        <div className="text-foreground/70 mb-8 leading-relaxed text-lg font-medium">
+                        <div className="text-foreground/75 mb-8 leading-relaxed text-lg font-medium">
                             <p>{product.description}</p>
                         </div>
 
@@ -96,6 +122,7 @@ export default async function ProductDetailsPage({ params }: { params: Promise<{
                             <AddToCartButton product={product as any} />
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

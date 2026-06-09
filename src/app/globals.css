@@ -40,15 +40,22 @@
     scroll-behavior: smooth;
   }
   body {
-    background-color: var(--background);
+    background: radial-gradient(circle at 50% 50%, rgba(10, 25, 50, 0.93) 0%, rgba(3, 7, 18, 0.99) 100%), url('/galaxy_bg.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-blend-mode: multiply;
     color: var(--foreground);
-    transition: background-color 0.5s ease, color 0.5s ease;
+    transition: background 0.5s ease, color 0.5s ease;
     min-height: 100vh;
   }
   
   .dark body {
-    background: radial-gradient(circle at 50% 50%, #1e293b 0%, #111827 100%);
+    background: radial-gradient(circle at 50% 50%, rgba(10, 25, 50, 0.93) 0%, rgba(3, 7, 18, 0.99) 100%), url('/galaxy_bg.png');
+    background-size: cover;
     background-attachment: fixed;
+    background-position: center;
+    background-blend-mode: multiply;
   }
 }
 

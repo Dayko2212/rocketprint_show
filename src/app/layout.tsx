@@ -18,8 +18,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "3D Bots | Kits Robotiques Professionnels",
-  description: "Boutique d'ingénierie robotique : kits DIY, impressions 3D et composants haute précision.",
+  title: "RocketPrint | L'univers de la création à portée de main",
+  description: "Propulsez vos projets avec nos impressions 3D de précision et nos kits de robots.",
 };
 
 export default function RootLayout({
@@ -33,6 +33,8 @@ export default function RootLayout({
         <div className="relative z-10 flex flex-col min-h-screen">
           <Providers>
             <AnimatedBackground />
+            {/* Backdrop Blur Overlay above the animated background canvas but below main content */}
+            <div className="fixed inset-0 backdrop-blur-[2px] bg-slate-950/20 pointer-events-none -z-10" />
             <Header />
             <main className="flex-grow">
               <PageTransition>

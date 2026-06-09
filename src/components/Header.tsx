@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import ThemeToggle from './ThemeToggle'
 import { playSound } from '@/lib/sounds'
@@ -17,17 +18,21 @@ export default function Header() {
                     onMouseEnter={() => playSound('hover')}
                     onClick={() => playSound('click')}
                 >
-                    <span className="text-3xl">🤖</span>
-                    <span className="text-2xl font-black tracking-tighter uppercase text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-600 group-hover:from-orange-300 group-hover:to-orange-500 transition-all">
-                        3D Bots
-                    </span>
+                    <Image
+                        src="/logo.png"
+                        alt="RocketPrint Logo"
+                        width={180}
+                        height={55}
+                        className="h-14 w-auto object-contain transition-transform group-hover:scale-105"
+                        priority
+                    />
                 </Link>
                 <nav className="flex space-x-6 items-center font-bold text-xs uppercase tracking-widest">
                     <Link 
                         href="/" 
                         onMouseEnter={() => playSound('hover')} 
                         onClick={() => playSound('click')} 
-                        className={`hidden lg:flex items-center px-4 h-8 rounded-full border border-card-border bg-surface-accent text-foreground/80 dark:text-foreground/70 hover:text-brand hover:bg-accent-blue/10 transition-all relative ${pathname === '/' ? 'border-orange-500/50' : ''}`}
+                        className={`flex items-center px-4 h-8 rounded-full border border-card-border bg-surface-accent text-foreground/80 dark:text-foreground/70 hover:text-brand hover:bg-accent-blue/10 transition-all relative ${pathname === '/' ? 'border-orange-500/50' : ''}`}
                     >
                         Accueil
                         {pathname === '/' && (

@@ -7,7 +7,7 @@ export default function AddToCartButton({ product }: { product?: any }) {
     const handleContact = () => {
         playSound('click');
         const subject = encodeURIComponent(`Demande d'information - ${product?.name || "Bras Robotique"}`);
-        window.location.href = `mailto:contact@3dbots.fr?subject=${subject}`;
+        window.location.href = `mailto:contact.rocketprint@gmail.com?subject=${subject}`;
     }
 
     return (
