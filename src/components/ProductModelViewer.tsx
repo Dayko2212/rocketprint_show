@@ -45,7 +45,7 @@ interface ProductModelViewerProps {
 }
 
 export default function ProductModelViewer({ modelUrl }: ProductModelViewerProps) {
-    const { theme } = useTheme();
+    const { resolvedTheme } = useTheme();
     const [zoom, setZoom] = useState(1);
 
     const containerRef = useRef<HTMLDivElement>(null);
@@ -148,7 +148,7 @@ export default function ProductModelViewer({ modelUrl }: ProductModelViewerProps
 
                 {/* 3D Scene */}
                 <Canvas dpr={[1, 2]} camera={{ fov: 45, position: [4, 4, 4] }} shadows>
-                    <color attach="background" args={[theme === 'light' ? '#f0f9ff' : '#050810']} />
+                    <color attach="background" args={[resolvedTheme === 'light' ? '#f0f9ff' : '#050810']} />
                     <Suspense fallback={null}>
                         <CameraController zoom={zoom} />
 

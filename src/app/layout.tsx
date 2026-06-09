@@ -34,7 +34,7 @@ export default function RootLayout({
           <Providers>
             <AnimatedBackground />
             {/* Backdrop Blur Overlay above the animated background canvas but below main content */}
-            <div className="fixed inset-0 backdrop-blur-[2px] bg-slate-950/20 pointer-events-none -z-10" />
+            <div className="fixed inset-0 backdrop-blur-[2px] bg-white/10 dark:bg-slate-950/20 pointer-events-none -z-10" />
             <Header />
             <main className="flex-grow">
               <PageTransition>

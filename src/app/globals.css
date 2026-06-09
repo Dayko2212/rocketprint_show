@@ -40,11 +40,10 @@
     scroll-behavior: smooth;
   }
   body {
-    background: radial-gradient(circle at 50% 50%, rgba(10, 25, 50, 0.93) 0%, rgba(3, 7, 18, 0.99) 100%), url('/galaxy_bg.png');
+    background: radial-gradient(circle at 50% 50%, #f0f9ff 0%, #dbeafe 100%);
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
-    background-blend-mode: multiply;
     color: var(--foreground);
     transition: background 0.5s ease, color 0.5s ease;
     min-height: 100vh;
